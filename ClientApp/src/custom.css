@@ -1,0 +1,26 @@
+/* Provide sufficient contrast against white background */
+
+@import '../node_modules/antd/dist/antd.css';
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.logo {
+    height: 32px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 16px;
+}
+
+.site-layout  {
+    background: #fff;
+}
+.site-layout-background {
+    background: #F6F6F6;
+}
+.icons-list > .anticon {
+    margin-right: 6px;
+    font-size: 24px;
+}
+
+.ant-row-rtl .icons-list > .anticon {
+    margin-right: 0;
+    margin-left: 6px;
+}
