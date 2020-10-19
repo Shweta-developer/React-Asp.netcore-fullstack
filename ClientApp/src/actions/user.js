@@ -5,14 +5,13 @@ export const ACTION_TYPES = {
     UPDATE: 'UPDATE',
     DELETE: 'DELETE',
     FETCH_ALL: 'FETCH_ALL',
-    FETCHBYID: 'FETCHBYID',
-    CLEAR:'CLEAR'
+    FETCHBYID: 'FETCHBYID'
 }
 
 
 
 export const fetchAll = () => dispatch => {
-    api.admin().fetchAll()
+    api.user().fetchAll()
         .then(response => {
             dispatch({
                 type: ACTION_TYPES.FETCH_ALL,
@@ -22,7 +21,7 @@ export const fetchAll = () => dispatch => {
         .catch(err => console.log(err))
 }
 export const fetchById = (id) => dispatch => {
-    api.admin().fetchById(id)
+    api.user().fetchById(id)
         .then(response => {
             dispatch({
                 type: ACTION_TYPES.FETCHBYID,
@@ -33,8 +32,8 @@ export const fetchById = (id) => dispatch => {
 }
 
 export const create = (data, onSuccess) => dispatch => {
-    
-    api.admin().create(data)
+
+    api.user().create(data)
         .then(res => {
             dispatch({
                 type: ACTION_TYPES.CREATE,
@@ -46,8 +45,8 @@ export const create = (data, onSuccess) => dispatch => {
 }
 
 export const update = (id, data, onSuccess) => dispatch => {
-    
-    api.admin().update(id, data)
+
+    api.user().update(id, data)
         .then(res => {
             dispatch({
                 type: ACTION_TYPES.UPDATE,
@@ -59,7 +58,7 @@ export const update = (id, data, onSuccess) => dispatch => {
 }
 
 export const Delete = (id, onSuccess) => dispatch => {
-    api.admin().delete(id)
+    api.user().delete(id)
         .then(res => {
             dispatch({
                 type: ACTION_TYPES.DELETE,

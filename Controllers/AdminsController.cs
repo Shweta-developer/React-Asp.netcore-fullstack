@@ -44,7 +44,7 @@ namespace WebApplication9.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Admin>> GetAdmin(int id)
         {
-            var admin = await _context.Admin.Where(s => s.AId == id).Include(s => s.User).FirstOrDefaultAsync(); ;
+            var admin = await _context.Admin.Where(s => s.AdminUserRef == id).Include(s => s.User).FirstOrDefaultAsync(); ;
 
             if (admin == null)
             {

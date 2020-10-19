@@ -1,12 +1,13 @@
 ﻿import React, { useState } from "react";
-
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import { useAuth } from "../context/auth";
-import  AdminInfo  from "./AdminInfo";
+import AdminInfo from "./AdminInfo";
+import Teacher from "./Teacher";
 import { Avatar } from 'antd';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import {
     DesktopOutlined,
-    PieChartOutlined,
+    SettingOutlined,
     FileOutlined,
     TeamOutlined,
     UserOutlined
@@ -15,7 +16,7 @@ import { Button } from 'antd';
 import { PoweroffOutlined } from '@ant-design/icons';
 import { store } from "../actions/store";
 import { Provider } from "react-redux";
-
+import Home from "./Home"
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -33,15 +34,17 @@ function Admin(props) {
 
     return (
         <Provider store={store}>
+            <Router>
         <Layout style={{ minHeight: '100vh' }}>
             <Sider collapsible collapsed={collapsed} onCollapse={e => setcollapsed(e)}>
                 
                 <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-                    <Menu.Item key="1" icon={<PieChartOutlined />}>
-                        Option 1
+                        <Menu.Item key="1" icon={<SettingOutlined />}>
+                                <Link to="/admin">Admin Details Seting</Link>
             </Menu.Item>
-                    <Menu.Item key="2" icon={<DesktopOutlined />}>
-                        Option 2
+                            <Menu.Item key="2" icon={<DesktopOutlined />}>
+                                <Link to="/teacher">Manage Teacher</Link>
+                               
             </Menu.Item>
                     <SubMenu key="sub1" icon={<UserOutlined />} title="User">
                         <Menu.Item key="3">Tom</Menu.Item>
@@ -56,7 +59,7 @@ function Admin(props) {
                 </Menu>
             </Sider>
             <Layout className="site-layout">
-                <Header className="site-layout-background" style={{ padding: 15, margin: '0 16px' }}><Avatar style={{ float: 'right' }} icon={<UserOutlined />} />
+                        <Header className="site-layout-background" style={{ padding: 15, margin: '0 16px' }}><Avatar style={{ float: 'right' }} icon={<UserOutlined />} />
                     <Button
                         type="primary"
                         icon={<PoweroffOutlined />}
@@ -67,13 +70,16 @@ function Admin(props) {
                         <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
                         
                     </Breadcrumb>
-                    <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-                        <AdminInfo/>
+                    <div className="site-layout-background" style={{ padding: 24, minHeight: 400 }}>
+                                
+                                <Route exact path="/admin" component={AdminInfo} />
+                                <Route exact path="/teacher" component={Teacher} />
             </div>
                 </Content>
                 <Footer style={{ textAlign: 'center', margin: '0 16px' }}>Ant Design ©2018 Created by Ant UED</Footer>
             </Layout>
-            </Layout>
+                </Layout>
+                </Router>
             </Provider>
     );
 }

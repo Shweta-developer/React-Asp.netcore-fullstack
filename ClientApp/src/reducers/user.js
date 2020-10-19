@@ -1,10 +1,10 @@
-﻿import { ACTION_TYPES } from "../actions/admin";
+﻿import { ACTION_TYPES } from "../actions/user";
 const initialState = {
     list: []
 }
 
 
-export const admin = (state = initialState, action) => {
+export const user = (state = initialState, action) => {
 
     switch (action.type) {
         case ACTION_TYPES.FETCH_ALL:
@@ -13,10 +13,9 @@ export const admin = (state = initialState, action) => {
                 list: [...action.payload]
             }
         case ACTION_TYPES.FETCHBYID:
-            
             return {
                 ...state,
-                list: { ...action.payload }
+                list: [action.payload]
             }
 
         case ACTION_TYPES.CREATE:
@@ -28,7 +27,7 @@ export const admin = (state = initialState, action) => {
         case ACTION_TYPES.UPDATE:
             return {
                 ...state,
-                list: {...state.list }
+                list: state.list.map(x => x.id == action.payload.id ? action.payload : x)
             }
 
         case ACTION_TYPES.DELETE:

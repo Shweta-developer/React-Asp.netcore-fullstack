@@ -15,7 +15,7 @@ using WebApplication9.Helpers;
 
 namespace WebApplication9.Controllers
 {
-    [Authorize]
+    
     [ApiController]
     [Route("[controller]")]
     public class UsersController : ControllerBase
