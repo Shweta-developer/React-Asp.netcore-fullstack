@@ -127,7 +127,7 @@ const Teacher = ({ ...props }) => {
                                 {
                                     props.teacherList.map((record, index) => {
                                         return (<TableRow key={index} hover>
-                                            <TableCell>{record.email}</TableCell>
+                                            <TableCell>{record.user.firstName}</TableCell>
                                             <TableCell>{record.email}</TableCell>
                                             <TableCell>
                                                 <ButtonGroup variant="text">

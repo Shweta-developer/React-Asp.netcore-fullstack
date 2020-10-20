@@ -19,24 +19,24 @@ function Login(props) {
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const { setAuthTokens } = useAuth();
-   const referer = props.location.state.referer || '/login';
+    //const referer = props.location.state.referer || '/login';
 
     function postLogin() {
         axios.post("http://localhost:58059/Users/authenticate/", {
-            username:userName,
-            Password:password
+            username: userName,
+            Password: password
         }).then(result => {
             if (result.status === 200) {
-               
-                
+
+
                 localStorage.setItem('myValueInLocalStorage', result.data.role);
                 localStorage.setItem('userid', result.data.id);
-                
+
                 console.log(localStorage.getItem('myValueInLocalStorage'));
                 setAuthTokens(result.data);
                 setLoggedIn(true);
-                
-                
+
+
             } else {
                 setIsError(true);
             }
@@ -44,12 +44,22 @@ function Login(props) {
             setIsError(true);
         });
     }
-    if (isLoggedIn) {
-        return <Redirect to={referer} />;
+    if (isLoggedIn && (localStorage.getItem('myValueInLocalStorage') === 'admin')) {
+
+        console.log(localStorage.getItem('myValueInLocalStorage'))
+        return <Redirect to="/admin" />;
+    }
+    else if (isLoggedIn && (localStorage.getItem('myValueInLocalStorage') === 'user')) {
+        return <Redirect to="/user" />;
     }
     
     
- 
+    
+    
+        
+        
+
+
 
     return (
         
