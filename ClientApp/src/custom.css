@@ -3,6 +3,21 @@
 @import '../node_modules/antd/dist/antd.css';
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    background-color: #7C287B;
+}
+.ant-menu {
+    background-color: #7C287B;
+}
+.ant-btn-primary {
+    background-color: #7C287B;
+    border-color:#7C287B;
+    border-radius:25%;
+}
+    .ant-btn-primary:hover {
+        background-color: #531dab;
+        border-color: #9254de;
+    }
 .logo {
     height: 32px;
     background: rgba(255, 255, 255, 0.2);
@@ -13,8 +28,9 @@
     background: #fff;
 }
 .site-layout-background {
-    background: #F6F6F6;
+    background: #d6e4ff;
 }
+
 .icons-list > .anticon {
     margin-right: 6px;
     font-size: 24px;

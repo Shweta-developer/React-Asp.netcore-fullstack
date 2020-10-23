@@ -147,7 +147,7 @@ const AdminInfo = ({ ...props }) => {
         });
     };
     return (
-        <div style={{ textAlign: "left" }}>
+        <div style={{ textAlign: "left" }} style={{backgroundColor:'white'}}>
 
 
             <Divider orientation="left">Admin Details</Divider>
