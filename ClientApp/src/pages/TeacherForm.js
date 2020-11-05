@@ -1,27 +1,14 @@
-﻿import React, { useState, useEffect } from "react";
+﻿import React from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions/teacher";
-
-import { Divider } from 'antd';
 import { notification } from 'antd';
 import {
     Form,
     Input,
-    Tooltip,
-    Cascader,
-    Select,
-    Row,
-    Col,
-    Checkbox,
     Button,
-    AutoComplete,
 } from 'antd';
-import {
-    EditFilled
 
-} from '@ant-design/icons';
 
-const { Option } = Select;
 const layout = {
     labelCol: {
         span: 8,
@@ -47,16 +34,7 @@ const validateMessages = {
 
 
 const TeacherForm = ({ ...props }) => {
-    
-    const [aid, setaid] = React.useState('');
-    const [adminuserref, setadminuserref] = React.useState('');
 
-    //componentDidMount
-    //const [disabled, setDisabled] = useState(false);
-
-    // function handleGameClick() {
-    //     setDisabled(!disabled);
-    //  }
     const onFinish = values => {
         const {email,...rest }=values
         const val = { email, user: { ...rest, passwordHash: "", passwordSalt:"", role: "user" } }
@@ -70,19 +48,11 @@ const TeacherForm = ({ ...props }) => {
         const onSuccess = () => {
             notification.open(args);
         }
-
         props.createTeacher(val, onSuccess)
-        
     };
-
-
-
     return (
         <div style={{ textAlign: "left" }}>
-            
-
                         <Form {...layout} name="nest-messages" validateMessages={validateMessages} onFinish={onFinish} >
-
                             <Form.Item
                                 name="firstname"
                                 label="First Name"
@@ -111,41 +81,25 @@ const TeacherForm = ({ ...props }) => {
                                 rules={[{ type: 'email', message: 'not a validate email' }]}
                                 
                             >
-
                                 <Input  />
                             </Form.Item>
-                            
-
-
 
                             <Form.Item {...tailLayout}>
                                 <Button type="primary" htmlType="submit" >
                                     Submit
-        </Button>
-                               
+                                 </Button>
                             </Form.Item>
-
-
-
-
-
                         </Form>
-            
-
-
         </div>
     );
 }
 
 const mapStateToProps = state => ({
     teacherList: state.teacher.list
-    
 })
 
 const mapActionToProps = {
     createTeacher: actions.create
-    
-
 }
 
 export default connect(mapStateToProps, mapActionToProps)(TeacherForm);

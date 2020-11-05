@@ -33,7 +33,7 @@ namespace WebApplication9.Controllers
         public async Task<ActionResult<IEnumerable<TeacherClass>>> GetTeacherClassesjoin()
         {
             return await _context.TeacherClasses.Include(s => s.Teacher)
-                        .Include(s => s.ClassInfo)
+                        .Include(s => s.ClassInfo).ThenInclude(c=>c.SchoolYear)
                         .ToListAsync();
         }
 
@@ -86,17 +86,51 @@ namespace WebApplication9.Controllers
         // POST: api/TeacherClasses
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /* [HttpPost]
+         public async Task<ActionResult<TeacherClass>> PostTeacherClass(TeacherClass teacherClass)
+         {
+             _context.TeacherClasses.Add(teacherClass);
+             try
+             {
+                 await _context.SaveChangesAsync();
+             }
+             catch (DbUpdateException)
+             {
+                 if (TeacherClassExists(teacherClass.TId))
+                 {
+                     return Conflict();
+                 }
+                 else
+                 {
+                     throw;
+                 }
+             }
+
+             return CreatedAtAction("GetTeacherClass", new { id = teacherClass.TId }, teacherClass);
+         }*/
         [HttpPost]
-        public async Task<ActionResult<TeacherClass>> PostTeacherClass(TeacherClass teacherClass)
+        public async Task<ActionResult<TeacherClass>> PostTeacherClass(TeacherClassesPost teacherClasspost)
         {
-            _context.TeacherClasses.Add(teacherClass);
+            var result = await _context.ClassInfo.Where(s => s.ClassName == teacherClasspost.ClassName).Select(x => new 
+    {
+                CId = x.CId
+            })
+   .SingleOrDefaultAsync();
+           
+            _context.TeacherClasses.Add(new TeacherClass()
+            {
+                TId=teacherClasspost.TId,
+                CId= result.CId
+
+            });
+           
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (TeacherClassExists(teacherClass.TId))
+                if (TeacherClassExists(teacherClasspost.TId))
                 {
                     return Conflict();
                 }
@@ -106,23 +140,23 @@ namespace WebApplication9.Controllers
                 }
             }
 
-            return CreatedAtAction("GetTeacherClass", new { id = teacherClass.TId }, teacherClass);
+            return CreatedAtAction("GetTeacherClass", new { id = teacherClasspost.TId }, teacherClasspost);
         }
 
         // DELETE: api/TeacherClasses/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<TeacherClass>> DeleteTeacherClass(int id)
         {
-            var teacherClass = await _context.TeacherClasses.FindAsync(id);
+            IList<TeacherClass> teacherClass = await _context.TeacherClasses.Where(s => s.CId == id).ToListAsync();
             if (teacherClass == null)
             {
                 return NotFound();
             }
 
-            _context.TeacherClasses.Remove(teacherClass);
+            _context.TeacherClasses.RemoveRange(teacherClass);
             await _context.SaveChangesAsync();
 
-            return teacherClass;
+            return NoContent();
         }
 
         private bool TeacherClassExists(int id)

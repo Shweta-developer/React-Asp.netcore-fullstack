@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router,Route} from "react-router-dom";
 import { Redirect} from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import Home from "./pages/Home";
@@ -9,31 +9,17 @@ import { AuthContext } from "./context/auth";
 import Login from "./pages/Login";
 import Signup from './pages/Signup';
 import "./custom.css";
-
-
-
 function App(props) {
     const [authTokens, setAuthTokens] = useState();
-    
-    
     const setTokens = (data) => {
         localStorage.setItem("tokens", JSON.stringify(data));
         setAuthTokens(data);
     }
-    
-
-    
-
-
     return (
         <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
             <Router>
-                
                 <div>
-                  
-                    
                     {console.log(localStorage.getItem('myValueInLocalStorage'))}
-                    
                         <ul>
                             {
                                 {
@@ -43,16 +29,7 @@ function App(props) {
                                 }[localStorage.getItem('myValueInLocalStorage')]
                             }
 
-
-
-
                         </ul> 
-                        
-                        
-
-                    
-                    
-                    
                     <Route exact path="/" component={Home} />
                     <Route exact path="/login" component={Login} />
                     <Route path="/signup" component={Signup} />
@@ -63,8 +40,6 @@ function App(props) {
                             
                         }[localStorage.getItem('myValueInLocalStorage')]
                         }
-                    
-                   
                 </div>
             </Router>
         </AuthContext.Provider>

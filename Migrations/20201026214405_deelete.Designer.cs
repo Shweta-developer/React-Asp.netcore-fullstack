@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication9.Helpers;
 
 namespace WebApplication9.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201026214405_deelete")]
+    partial class deelete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,32 +90,6 @@ namespace WebApplication9.Migrations
                     b.HasKey("YearId");
 
                     b.ToTable("SchoolYears");
-                });
-
-            modelBuilder.Entity("WebApplication9.Entities.Student", b =>
-                {
-                    b.Property<int>("SId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ClassId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentUserRef")
-                        .HasColumnType("int");
-
-                    b.Property<string>("email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("SId");
-
-                    b.HasIndex("ClassId");
-
-                    b.HasIndex("StudentUserRef")
-                        .IsUnique();
-
-                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("WebApplication9.Entities.Teacher", b =>
@@ -196,21 +172,6 @@ namespace WebApplication9.Migrations
                     b.HasOne("WebApplication9.Entities.SchoolYear", "SchoolYear")
                         .WithMany("Classes")
                         .HasForeignKey("YearId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("WebApplication9.Entities.Student", b =>
-                {
-                    b.HasOne("WebApplication9.Entities.Class", "Classes")
-                        .WithMany("Students")
-                        .HasForeignKey("ClassId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApplication9.Entities.User", "User")
-                        .WithOne("Student")
-                        .HasForeignKey("WebApplication9.Entities.Student", "StudentUserRef")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

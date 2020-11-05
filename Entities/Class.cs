@@ -12,5 +12,9 @@ namespace WebApplication9.Entities
         public int CId { get; set; }
         public string ClassName { get; set; }
         public IList<TeacherClass> TeacherClasses { get; set; }
+        public int YearId { get; set; }
+        public SchoolYear SchoolYear { get; set; }
+        public ICollection<Student> Students { get; set; }
+
     }
 }

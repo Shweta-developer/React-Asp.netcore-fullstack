@@ -50,6 +50,24 @@ namespace WebApplication9.Helpers
     .HasOne<User>(ad => ad.User)
     .WithOne(s => s.Admin)
     .HasForeignKey<Admin>(ad => ad.AdminUserRef).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Class>()
+            .HasOne<SchoolYear>(s => s.SchoolYear)
+            .WithMany(g => g.Classes)
+            .HasForeignKey(s => s.YearId);
+            modelBuilder.Entity<Student>()
+            .HasOne<Class>(s => s.Classes)
+            .WithMany(g => g.Students)
+            .HasForeignKey(s => s.ClassId);
+            modelBuilder.Entity<Class>()
+    .HasMany<Student>(g => g.Students)
+    .WithOne(s => s.Classes)
+    .HasForeignKey(s => s.ClassId);
+
+            modelBuilder.Entity<Student>()
+            .HasOne<User>(s => s.User)
+            .WithOne(ad => ad.Student)
+            .HasForeignKey<Student>(ad => ad.StudentUserRef);
+            
         }
 
 
@@ -58,6 +76,9 @@ namespace WebApplication9.Helpers
         public DbSet<Admin> Admin { get; set; }
         public DbSet<Class> ClassInfo { get; set; }
         public DbSet<TeacherClass> TeacherClasses { get; set; }
+        public DbSet<SchoolYear> SchoolYears { get; set; }
+        public DbSet<Student> Students { get; set; }
+
     }
 }
 

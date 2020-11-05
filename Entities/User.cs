@@ -16,6 +16,7 @@ namespace WebApplication9.Entities
         public byte[] PasswordSalt { get; set; }
         public string Role { get; set; }
         public Teacher Teacher { get; set; }
+        public Student Student { get; set; }
         public Admin Admin { get; set; }
     }
 }

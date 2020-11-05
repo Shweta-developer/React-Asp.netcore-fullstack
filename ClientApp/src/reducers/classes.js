@@ -1,10 +1,10 @@
-﻿import { ACTION_TYPES } from "../actions/admin";
+﻿import { ACTION_TYPES } from "../actions/classes";
 const initialState = {
     list: []
 }
 
 
-export const admin = (state = initialState, action) => {
+export const classes = (state = initialState, action) => {
 
     switch (action.type) {
         case ACTION_TYPES.FETCH_ALL:
@@ -16,19 +16,21 @@ export const admin = (state = initialState, action) => {
 
             return {
                 ...state,
-                list: {...action.payload }
+                list: { ...action.payload }
             }
 
         case ACTION_TYPES.CREATE:
+           
             return {
                 ...state,
-                list: [...state.list, action.payload]
+                list: [ ...state.list, action.payload ]
             }
+
 
         case ACTION_TYPES.UPDATE:
             return {
                 ...state,
-                list: {...state.list }
+                list: { ...state.list }
             }
 
         case ACTION_TYPES.DELETE:

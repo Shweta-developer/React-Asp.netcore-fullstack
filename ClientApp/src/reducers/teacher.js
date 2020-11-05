@@ -1,6 +1,7 @@
 ﻿import { ACTION_TYPES } from "../actions/teacher";
 const initialState = {
     list: []
+   
 }
 
 
@@ -8,9 +9,11 @@ export const teacher = (state = initialState, action) => {
 
     switch (action.type) {
         case ACTION_TYPES.FETCH_ALL:
+  
             return {
                 ...state,
-                list: [...action.payload]
+                list: [
+                    ...action.payload]
             }
         case ACTION_TYPES.FETCHBYID:
             return {

@@ -1,17 +1,9 @@
 ﻿import React, { useState } from "react";
-import { Link, Redirect,Route } from "react-router-dom";
-import { BrowserRouter as Router } from "react-router-dom";
-import PrivateRoute from '../PrivateRoute';
+import { Link, Redirect } from "react-router-dom";
 import axios from 'axios';
 import logoImg from "../img/logo.jpg";
 import { Card, Logo, Form, Input, Button, Error } from "../components/AuthForms";
 import { useAuth } from "../context/auth";
-import User from "./User";
-import Admin from "./Admin";
-
-
-
-
 
 function Login(props) {
     const [isLoggedIn, setLoggedIn] = useState(false);
@@ -27,16 +19,11 @@ function Login(props) {
             Password: password
         }).then(result => {
             if (result.status === 200) {
-
-
                 localStorage.setItem('myValueInLocalStorage', result.data.role);
                 localStorage.setItem('userid', result.data.id);
-
                 console.log(localStorage.getItem('myValueInLocalStorage'));
                 setAuthTokens(result.data);
                 setLoggedIn(true);
-
-
             } else {
                 setIsError(true);
             }
@@ -45,24 +32,14 @@ function Login(props) {
         });
     }
     if (isLoggedIn && (localStorage.getItem('myValueInLocalStorage') === 'admin')) {
-
         console.log(localStorage.getItem('myValueInLocalStorage'))
         return <Redirect to="/admin" />;
     }
     else if (isLoggedIn && (localStorage.getItem('myValueInLocalStorage') === 'user')) {
         return <Redirect to="/user" />;
     }
-    
-    
-    
-    
-        
-        
-
-
 
     return (
-        
         <Card>
             <Logo src={logoImg} />
             <Form>
@@ -86,12 +63,7 @@ function Login(props) {
             </Form>
             <Link to="/signup">Don't have an account?</Link>
             {isError && <Error>The username or password provided were incorrect!</Error>}
-            </Card>
-            
-            
-            
-            
-            
+            </Card>   
     );
 }
 

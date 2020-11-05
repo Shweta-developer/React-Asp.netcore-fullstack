@@ -12,48 +12,48 @@ namespace WebApplication9.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClassesController : ControllerBase
+    public class SchoolYearsController : ControllerBase
     {
         private readonly DataContext _context;
 
-        public ClassesController(DataContext context)
+        public SchoolYearsController(DataContext context)
         {
             _context = context;
         }
 
-        // GET: api/Classes
+        // GET: api/SchoolYears
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Class>>> GetClassInfo()
+        public async Task<ActionResult<IEnumerable<SchoolYear>>> GetSchoolYears()
         {
-            return await _context.ClassInfo.Include(s => s.SchoolYear).ToListAsync();
+            return await _context.SchoolYears.ToListAsync();
         }
 
-        // GET: api/Classes/5
+        // GET: api/SchoolYears/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Class>> GetClass(int id)
+        public async Task<ActionResult<SchoolYear>> GetSchoolYear(int id)
         {
-            var @class = await _context.ClassInfo.FindAsync(id);
+            var schoolYear = await _context.SchoolYears.FindAsync(id);
 
-            if (@class == null)
+            if (schoolYear == null)
             {
                 return NotFound();
             }
 
-            return @class;
+            return schoolYear;
         }
 
-        // PUT: api/Classes/5
+        // PUT: api/SchoolYears/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutClass(int id, Class @class)
+        public async Task<IActionResult> PutSchoolYear(int id, SchoolYear schoolYear)
         {
-            if (id != @class.CId)
+            if (id != schoolYear.YearId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(@class).State = EntityState.Modified;
+            _context.Entry(schoolYear).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace WebApplication9.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ClassExists(id))
+                if (!SchoolYearExists(id))
                 {
                     return NotFound();
                 }
@@ -74,42 +74,37 @@ namespace WebApplication9.Controllers
             return NoContent();
         }
 
-        // POST: api/Classes
+        // POST: api/SchoolYears
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Class>> PostClass(Class @class)
+        public async Task<ActionResult<SchoolYear>> PostSchoolYear(SchoolYear schoolYear)
         {
-            _context.ClassInfo.Add(@class);
+            _context.SchoolYears.Add(schoolYear);
             await _context.SaveChangesAsync();
-            return Ok(new
-            {
-                CId = @class.CId,
-                Yearid=@class.YearId
 
-            });
-            
+            return CreatedAtAction("GetSchoolYear", new { id = schoolYear.YearId }, schoolYear);
         }
 
-        // DELETE: api/Classes/5
+        // DELETE: api/SchoolYears/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Class>> DeleteClass(int id)
+        public async Task<ActionResult<SchoolYear>> DeleteSchoolYear(int id)
         {
-            var @class = await _context.ClassInfo.FindAsync(id);
-            if (@class == null)
+            var schoolYear = await _context.SchoolYears.FindAsync(id);
+            if (schoolYear == null)
             {
                 return NotFound();
             }
 
-            _context.ClassInfo.Remove(@class);
+            _context.SchoolYears.Remove(schoolYear);
             await _context.SaveChangesAsync();
 
-            return @class;
+            return schoolYear;
         }
 
-        private bool ClassExists(int id)
+        private bool SchoolYearExists(int id)
         {
-            return _context.ClassInfo.Any(e => e.CId == id);
+            return _context.SchoolYears.Any(e => e.YearId == id);
         }
     }
 }
